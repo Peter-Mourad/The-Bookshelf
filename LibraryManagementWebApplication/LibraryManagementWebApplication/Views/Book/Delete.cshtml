@@ -1,0 +1,51 @@
+﻿@using LibraryManagementWebApplication.Data.Enum
+@model Book
+
+<h1>are you sure you want to delete this Book?</h1>
+
+<form method="post" asp-action="Delete" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Author">Author</label>
+        <input asp-for="Author" class="form-control" placeholder="Author">
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Publisher">Publisher</label>
+        <input asp-for="Publisher" class="form-control" placeholder="Publisher">
+        <span asp-validation-for="Publisher" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category">Book Category</label>
+        <select asp-for="Category" asp-items="@Html.GetEnumSelectList<Category>()" class="form-control">
+            <option selected="selected" value="">--Select--</option>
+        </select>
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price">Price</label>
+        <input asp-for="Price" class="form-control" placeholder="Price">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PagesCount">Book's Pages count</label>
+        <input asp-for="PagesCount" class="form-control" placeholder="Book's Pages count">
+        <span asp-validation-for="PagesCount" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="InStock">In stock</label>
+        <input asp-for="InStock" class="form-control" placeholder="In Stock" style="height:fit-content">
+        <span asp-validation-for="InStock" class="text-danger"></span>
+    </div>
+
+    <button type="submit" asp-for="Id" class="btn btn-primary style="background-color:red">Delete</button>
+</form>

@@ -1,0 +1,54 @@
+﻿@using LibraryManagementWebApplication.Data.Enum
+@model Book
+
+
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="text-center mb-4">
+        <p>Add a New Book to the Store</p>
+    </div>
+
+    <div class="form-label-group" style="margin-bottom:10px">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Enter Book Name" required autofocus>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-label-group" style="margin-bottom:10px">
+        <label asp-for="Author">Author</label>
+        <input asp-for="Author" class="form-control" placeholder="Enter Author name" required autofocus>
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+    <div class="form-label-group" style="margin-bottom:10px">
+        <label asp-for="Publisher">Publisher</label>
+        <input asp-for="Publisher" class="form-control" placeholder="Enter Publisher name">
+    </div>
+
+    <div class="form-label-group" style="margin-bottom:10px">
+        <label asp-for="Category">Book Category</label>
+        <select asp-for="Category" asp-items="@Html.GetEnumSelectList<Category>()">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+
+    <div class="form-label-group" style="margin-bottom:10px">
+        <label asp-for="Price">Price</label>
+        <input asp-for="Price" class="form-control" placeholder="Enter Book Price" required autofocus>
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-label-group" style="margin-bottom:10px">
+        <label asp-for="PagesCount">Book Pages Count</label>
+        <input asp-for="PagesCount" class="form-control" placeholder="Enter the book's number of pages" required autofocus>
+        <span asp-validation-for="PagesCount" class="text-danger"></span>
+    </div>
+
+    <div class="form-row form-group" style="margin-top:30px">
+        <div class="col">
+            <button class="btn btn-block btn-success btn-lg" type="submit">Add Book</button>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,20 @@
+﻿@model Book
+
+
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="col-md-4">
+            <div class="model mb-4 box-shadow">
+                <h1>@Model.Name</h1>
+                <div class="card-body">
+                    <h3>Author: @Model.Author</h3>
+                    <h3>Publisher: @Model.Publisher</h3>
+                    <h3>Category: @Model.Category</h3>
+                    <h3>Price: @Model.Price$</h3>
+                    <h3>Pages Count: @Model.PagesCount</h3>
+                    <h3>In stock: @(Model.InStock ? "Yes" : "NO")</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

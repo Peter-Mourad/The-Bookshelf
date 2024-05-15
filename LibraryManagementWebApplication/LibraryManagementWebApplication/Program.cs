@@ -1,8 +1,7 @@
 using LibraryManagementWebApplication.Data;
-using LibraryManagementWebApplication.Models;
-using Microsoft.AspNetCore.Identity;
+using LibraryManagementWebApplication.Interfaces;
+using LibraryManagementWebApplication.Repository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +10,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+
 
 var app = builder.Build();
 
+Seed.seedData(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
