@@ -12,7 +12,11 @@ namespace LibraryManagementWebApplication.Models
         public string Author { get; set; }
         public string? Publisher { get; set; }
         public Category Category { get; set; }
+        [Range(0, float.MaxValue, ErrorMessage = "Please enter valid Price number")]
         public float Price { get; set; }
+        [Range(0,10F, ErrorMessage = "Please enter valid rating")]
+        public float Rating { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid Pages count number")]
         public int PagesCount { get; set; }
         public bool InStock { get; set; }
     }

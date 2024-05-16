@@ -34,6 +34,15 @@ namespace LibraryManagementWebApplication.Controllers
         [HttpPost]
         public IActionResult Create(CreateBookViewModel createBookViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["ValidationError"] = ModelState.Select(x => x.Value.Errors)
+                           .Where(y => y.Count > 0)
+                           .ToList();
+                Console.WriteLine(TempData["ValidationError"]);
+                return View();
+            }
+
             var book = new Book
             {
                 Name = createBookViewModel.Name,
@@ -41,6 +50,7 @@ namespace LibraryManagementWebApplication.Controllers
                 Publisher = createBookViewModel.Publisher,
                 Category = createBookViewModel.Category,
                 Price = createBookViewModel.Price,
+                Rating = createBookViewModel.Rating,
                 PagesCount = createBookViewModel.PagesCount,
                 InStock = createBookViewModel.InStock
             };
@@ -58,6 +68,7 @@ namespace LibraryManagementWebApplication.Controllers
                 Publisher = book.Publisher,
                 Category = book.Category,
                 Price = book.Price,
+                Rating= book.Rating,
                 PagesCount = book.PagesCount,
                 InStock = book.InStock
             };
@@ -67,6 +78,15 @@ namespace LibraryManagementWebApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditBookViewModel editBookViewModel, int id)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["ValidationError"] = ModelState.Select(x => x.Value.Errors)
+                           .Where(y => y.Count > 0)
+                           .ToList();
+                Console.WriteLine(TempData["ValidationError"]);
+                return View();
+            }
+
             var editedBook = new Book
             {
                 Id = id,
@@ -75,6 +95,7 @@ namespace LibraryManagementWebApplication.Controllers
                 Publisher = editBookViewModel.Publisher,
                 Category = editBookViewModel.Category,
                 Price = editBookViewModel.Price,
+                Rating = editBookViewModel.Rating,
                 PagesCount = editBookViewModel.PagesCount,
                 InStock = editBookViewModel.InStock
             };

@@ -24,6 +24,7 @@ namespace LibraryManagementWebApplication.Data
                             Publisher = "Simon & Schuster",
                             Category = Category.Drama,
                             Price = 399.99F,
+                            Rating = 4.4F,
                             PagesCount = 104,
                             InStock = true
                         },
@@ -34,6 +35,7 @@ namespace LibraryManagementWebApplication.Data
                             Publisher = "viking",
                             Category = Category.Horror,
                             Price = 299F,
+                            Rating = 4.5F,
                             PagesCount = 1134,
                             InStock = true
                         },
@@ -44,6 +46,7 @@ namespace LibraryManagementWebApplication.Data
                             Publisher = "Simon & Schuster",
                             Category = Category.History,
                             Price = 513F,
+                            Rating = 4.8F,
                             PagesCount = 352,
                             InStock = true
                         }
