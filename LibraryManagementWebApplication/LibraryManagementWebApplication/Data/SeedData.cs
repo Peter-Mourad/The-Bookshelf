@@ -1,11 +1,12 @@
 ﻿using LibraryManagementWebApplication.Models;
 using LibraryManagementWebApplication.Data.Enum;
+using Microsoft.AspNetCore.Identity;
 
 namespace LibraryManagementWebApplication.Data
 {
     public class Seed
     {
-        public static void seedData(IApplicationBuilder applicationBuilder)
+        public static void SeedData(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
@@ -52,6 +53,36 @@ namespace LibraryManagementWebApplication.Data
                         }
                     });
                     context.SaveChanges();
+                }
+            }
+        }
+
+        public static async Task SeedUsersAndRoles(IApplicationBuilder applicationBuilder)
+        {
+            using(var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+                // Roles
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                if (!await roleManager.RoleExistsAsync("Admin"))
+                    await roleManager.CreateAsync(new IdentityRole("Admin"));
+                if (!await roleManager.RoleExistsAsync("User"))
+                    await roleManager.CreateAsync(new IdentityRole("User"));
+
+                //Users
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                string email = "admin@admin.com";
+                string password = "Admin.202";
+                if(await userManager.FindByEmailAsync(email)==null)
+                {
+                    var user = new User
+                    {
+                        Email = email,
+                        UserName = "admin",
+                        EmailConfirmed = true,
+                    };
+                    
+                    await userManager.CreateAsync(user, password);
+                    await userManager.AddToRoleAsync(user, "Admin");
                 }
             }
         }
