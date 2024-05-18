@@ -1,8 +1,10 @@
 using LibraryManagementWebApplication.Data;
 using LibraryManagementWebApplication.Helpers;
 using LibraryManagementWebApplication.Interfaces;
+using LibraryManagementWebApplication.Models;
 using LibraryManagementWebApplication.Repository;
 using LibraryManagementWebApplication.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,11 +17,14 @@ builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection(
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 
 var app = builder.Build();
 
-Seed.seedData(app);
+Seed.SeedData(app);
+await Seed.SeedUsersAndRoles(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
