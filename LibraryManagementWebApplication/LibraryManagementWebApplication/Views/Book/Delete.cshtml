@@ -4,6 +4,7 @@
 <h1>are you sure you want to delete this Book?</h1>
 
 <form method="post" asp-action="Delete" enctype="multipart/form-data">
+    <img src="@Model.Image" height="450px" width="250px" style="margin-bottom: 20px"/>
     <div class="form-group">
         <label asp-for="Name">Name</label>
         <input asp-for="Name" class="form-control" placeholder="Name">
@@ -33,6 +34,12 @@
         <label asp-for="Price">Price</label>
         <input asp-for="Price" class="form-control" placeholder="Price">
         <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-label-group" style="margin-bottom:10px">
+        <label asp-for="Rating">Rating</label>
+        <input asp-for="Rating" class="form-control" placeholder="Rating" required autofocus>
+        <span asp-validation-for="Rating" class="text-danger"></span>
     </div>
 
     <div class="form-group">

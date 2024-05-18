@@ -9,9 +9,11 @@ namespace LibraryManagementWebApplication.Controllers
     {
 
         private readonly IBookRepository _repository;
-        public BookController(IBookRepository repository)
+        private readonly IPhotoService _photoService;
+        public BookController(IBookRepository repository, IPhotoService photoService)
         {
             _repository = repository;
+            _photoService = photoService;
         }
         public async Task<IActionResult> Index()
         {
@@ -22,7 +24,6 @@ namespace LibraryManagementWebApplication.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var book = await _repository.GetByIdAsync(id);
-            Console.WriteLine(book);
             return View(book);
         }
 
@@ -32,17 +33,16 @@ namespace LibraryManagementWebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateBookViewModel createBookViewModel)
+        public async Task<IActionResult> Create(CreateBookViewModel createBookViewModel)
         {
             if (!ModelState.IsValid)
             {
                 TempData["ValidationError"] = ModelState.Select(x => x.Value.Errors)
                            .Where(y => y.Count > 0)
                            .ToList();
-                Console.WriteLine(TempData["ValidationError"]);
                 return View();
             }
-
+            var uploadImageResult = await _photoService.AddPhotoAsync(createBookViewModel.Image);
             var book = new Book
             {
                 Name = createBookViewModel.Name,
@@ -50,6 +50,7 @@ namespace LibraryManagementWebApplication.Controllers
                 Publisher = createBookViewModel.Publisher,
                 Category = createBookViewModel.Category,
                 Price = createBookViewModel.Price,
+                Image = uploadImageResult.Url.ToString(),
                 Rating = createBookViewModel.Rating,
                 PagesCount = createBookViewModel.PagesCount,
                 InStock = createBookViewModel.InStock
@@ -67,6 +68,7 @@ namespace LibraryManagementWebApplication.Controllers
                 Author = book.Author,
                 Publisher = book.Publisher,
                 Category = book.Category,
+                Url = book.Image,
                 Price = book.Price,
                 Rating= book.Rating,
                 PagesCount = book.PagesCount,
@@ -83,10 +85,12 @@ namespace LibraryManagementWebApplication.Controllers
                 TempData["ValidationError"] = ModelState.Select(x => x.Value.Errors)
                            .Where(y => y.Count > 0)
                            .ToList();
-                Console.WriteLine(TempData["ValidationError"]);
                 return View();
             }
 
+            if (editBookViewModel.Url != null)
+                await _photoService.DeletePhotoAsync(editBookViewModel.Url);
+            var uploadPhotoResult = await _photoService.AddPhotoAsync(editBookViewModel.Image);
             var editedBook = new Book
             {
                 Id = id,
@@ -94,6 +98,7 @@ namespace LibraryManagementWebApplication.Controllers
                 Author = editBookViewModel.Author,
                 Publisher = editBookViewModel.Publisher,
                 Category = editBookViewModel.Category,
+                Image = uploadPhotoResult.Url.ToString(),
                 Price = editBookViewModel.Price,
                 Rating = editBookViewModel.Rating,
                 PagesCount = editBookViewModel.PagesCount,
