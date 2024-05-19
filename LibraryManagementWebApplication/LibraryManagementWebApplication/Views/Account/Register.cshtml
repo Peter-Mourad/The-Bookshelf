@@ -1,0 +1,65 @@
+﻿@using LibraryManagementWebApplication.ViewModels
+@model RegisterViewModel
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Register</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+    <form method="post" asp-action="Register" enctype="multipart/form-data" class="form-signin" style="width:35%; height:50%; margin: auto">
+        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+
+        <div class="form-label-group" style="margin-bottom:20px;">
+        <label asp-for = "FirstName">First Name</label>
+        <input asp-for = "FirstName" class="form-control" placeholder="Enter you first name" required autofocus/>
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="form-label-group" style="margin-bottom:20px;">
+            <label asp-for="LastName">Last Name</label>
+            <input asp-for="LastName" class="form-control" placeholder="Enter you last name" required autofocus />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="form-label-group" style="margin-bottom:20px;">
+            <label asp-for="Email">Email Address</label>
+            <input asp-for="Email" class="form-control" placeholder="Enter you email address" required autofocus />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-label-group" style="margin-bottom:20px;">
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" class="form-control" placeholder="Enter a strong password" required autofocus />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-label-group" style="margin-bottom:20px;">
+            <label asp-for="ConfirmPassword">Password</label>
+            <input asp-for="ConfirmPassword" class="form-control" placeholder="Enter your password again" required autofocus />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+    </form>
+</body>
+</html>

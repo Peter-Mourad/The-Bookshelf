@@ -4,6 +4,7 @@ using LibraryManagementWebApplication.Interfaces;
 using LibraryManagementWebApplication.Models;
 using LibraryManagementWebApplication.Repository;
 using LibraryManagementWebApplication.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 
 var app = builder.Build();
