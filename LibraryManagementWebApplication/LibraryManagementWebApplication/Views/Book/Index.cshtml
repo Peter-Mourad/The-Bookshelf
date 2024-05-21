@@ -1,36 +1,44 @@
 ﻿@model IEnumerable<Book>
 
-<h1 style="display: flex; justify-content:center">Library Books</h1>
-<div class="album py-5 bg-light">
+
+<h1 style="display: flex; justify-content:center; margin:30px">Library Books</h1>
+<div class="album py-5 bg-light" style="margin-top:50px">
     <div class="container">
         <div class="row">
             @foreach (var book in Model)
             {
                 <div class="col-md-4">
-                    <div class="card mb-4 box-shadow" style="padding:10px">
-                        <img class="card-img-top" src="@book.Image" alt="Card image cap" height="450px" width="250px">
-                        <h3>Name: @book.Name</h3>
-                        <h3>Author: @book.Author</h3>
-                        <h3>Publisher: @book.Publisher</h3>
-                        <h3>Category: @book.Category</h3>
-                        <h3>Price: @book.Price$</h3>
-                        <h3>Rating: @book.Rating</h3>
-                        <h3>Pages Count: @book.PagesCount</h3>
-                        <h3>In stock: @(book.InStock ? "Yes" : "NO")</h3>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a type="button" asp-controller="Book" asp-action="Details" asp-route-id="@book.Id"
-                                       class="btn btn-sm btn-outline-secondary" style="padding:10px; margin:5px">View</a>
-                                    <a type="button" asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id"
-                                       class="btn btn-sm btn-outline-secondary" style="padding:10px; margin:5px">Edit</a>
-                                    <a type="button" asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id"
-                                       class="btn btn-sm btn-outline-secondary" style="padding:10px; margin:5px">Delete</a>
+                    <a asp-controller="Book" asp-action="Details" asp-route-id="@book.Id" style="text-decoration:none">
+                        <div class="card mb-4 box-shadow" style="padding:10px">
+                            <img class="card-img-top" src="@book.Image" alt="Card image cap" height="450px" width="250px">
+                            <h3>Name: @book.Name</h3>
+                            <h3>Author: @book.Author</h3>
+                            <h3>Publisher: @book.Publisher</h3>
+                            <h3>Category: @book.Category</h3>
+                            <h3>Price: @book.Price$</h3>
+                            <h3>Rating: @book.Rating</h3>
+                            <h3>Pages Count: @book.PagesCount</h3>
+                            <h3>In stock: @(book.InStock ? "Yes" : "NO")</h3>
+                            <div class="card-body">
+                                <div>
+                                    <div class="btn-group">
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a type="button" asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id"
+                                               class="btn btn-sm btn-outline-secondary" style="padding:10px; margin:5px">Edit</a>
+                                            <a type="button" asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id"
+                                               class="btn btn-sm btn-outline-secondary" style="padding:10px; margin:5px">Delete</a>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
+            }
+            @if (Model.Count() == 0)
+            {
+                <h1 style="display:flex; justify-content:center">No Books are found</h1>
             }
         </div>
     </div>

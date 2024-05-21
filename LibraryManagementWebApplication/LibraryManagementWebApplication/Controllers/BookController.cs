@@ -1,6 +1,8 @@
-﻿using LibraryManagementWebApplication.Interfaces;
+﻿using LibraryManagementWebApplication.Data.Enum;
+using LibraryManagementWebApplication.Interfaces;
 using LibraryManagementWebApplication.Models;
 using LibraryManagementWebApplication.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementWebApplication.Controllers
@@ -27,19 +29,17 @@ namespace LibraryManagementWebApplication.Controllers
             return View(book);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateBookViewModel createBookViewModel)
         {
             if (!ModelState.IsValid)
             {
-                TempData["ValidationError"] = ModelState.Select(x => x.Value.Errors)
-                           .Where(y => y.Count > 0)
-                           .ToList();
                 return View();
             }
             var uploadImageResult = await _photoService.AddPhotoAsync(createBookViewModel.Image);
@@ -59,6 +59,7 @@ namespace LibraryManagementWebApplication.Controllers
             return RedirectToAction("Index", "Book");
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var book = await _repository.GetByIdAsync(id);
@@ -77,14 +78,11 @@ namespace LibraryManagementWebApplication.Controllers
             return View(bookViewModel);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(EditBookViewModel editBookViewModel, int id)
         {
             if (!ModelState.IsValid)
             {
-                TempData["ValidationError"] = ModelState.Select(x => x.Value.Errors)
-                           .Where(y => y.Count > 0)
-                           .ToList();
                 return View();
             }
 
@@ -108,6 +106,7 @@ namespace LibraryManagementWebApplication.Controllers
             return RedirectToAction("Index", "Book");
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var book = await _repository.GetByIdAsync(id);
@@ -116,12 +115,24 @@ namespace LibraryManagementWebApplication.Controllers
             return View(book);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Delete"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteBook(int id)
         {
             var book = await _repository.GetByIdAsync(id);
             _repository.Delete(book);
             return RedirectToAction("Index", "Book");
+        }
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+            var books = await _repository.Search(searchString);
+            return View("Index", books);
+        }
+
+        public async Task<IActionResult> GetBooksByCategory(Category category)
+        {
+            var categorizedBooks = await _repository.GetBooksByCategory(category);
+            return View("Index", categorizedBooks);
         }
     }
 }

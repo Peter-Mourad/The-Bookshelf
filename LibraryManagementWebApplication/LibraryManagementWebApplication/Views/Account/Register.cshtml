@@ -20,24 +20,29 @@
 
 <body class="text-center">
     <form method="post" asp-action="Register" enctype="multipart/form-data" class="form-signin" style="width:35%; height:50%; margin: auto">
-        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" style="margin-top:30px">
         <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
-
+        @if (TempData["RegistrationError"] != null)
+        {
+            <div>
+                <h5 style="color:red;">@TempData["RegistrationError"]</h5>
+            </div>
+        }
         <div class="form-label-group" style="margin-bottom:20px;">
         <label asp-for = "FirstName">First Name</label>
-        <input asp-for = "FirstName" class="form-control" placeholder="Enter you first name" required autofocus/>
+        <input asp-for = "FirstName" class="form-control" placeholder="Enter your first name" required autofocus/>
         <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
 
         <div class="form-label-group" style="margin-bottom:20px;">
             <label asp-for="LastName">Last Name</label>
-            <input asp-for="LastName" class="form-control" placeholder="Enter you last name" required autofocus />
+            <input asp-for="LastName" class="form-control" placeholder="Enter your last name" required autofocus />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
 
         <div class="form-label-group" style="margin-bottom:20px;">
             <label asp-for="Email">Email Address</label>
-            <input asp-for="Email" class="form-control" placeholder="Enter you email address" required autofocus />
+            <input asp-for="Email" class="form-control" placeholder="Enter your email address" required autofocus />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
@@ -48,7 +53,7 @@
         </div>
 
         <div class="form-label-group" style="margin-bottom:20px;">
-            <label asp-for="ConfirmPassword">Password</label>
+            <label asp-for="ConfirmPassword">Confirm Password</label>
             <input asp-for="ConfirmPassword" class="form-control" placeholder="Enter your password again" required autofocus />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>

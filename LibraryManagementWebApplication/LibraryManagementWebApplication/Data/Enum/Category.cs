@@ -10,7 +10,7 @@ namespace LibraryManagementWebApplication.Data.Enum
         Biography,
         Business,
         Comics,
-        [Description("Computer & Technology")] ComputerAndTechnology,
+        Technology,
         Cooking,
         Eductaional,
         Entertainment,
@@ -20,9 +20,7 @@ namespace LibraryManagementWebApplication.Data.Enum
         Literature,
         Science,
         Horror,
-        Kids,
         Religion,
-        Parenting,
         Romance,
         Sports
     }

@@ -35,7 +35,7 @@ namespace LibraryManagementWebApplication.Controllers
             var checkEmail = await _userManager.FindByEmailAsync(registerViewModel.Email);
             if(checkEmail != null)
             {
-                TempData["Error"] = "This email is arleady registered in another account!";
+                TempData["RegistrationError"] = "This email is arleady registered in another account!";
                 return View(registerViewModel);
             }
 
@@ -94,7 +94,6 @@ namespace LibraryManagementWebApplication.Controllers
             }
         }
 
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
