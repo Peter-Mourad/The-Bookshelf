@@ -5,6 +5,9 @@
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
     <div class="text-center mb-4">
         <p>Update Book Data</p>
+        <div class="image-wrapper" style="display:flex; justify-content:center;">
+            <img src="@Model.Url" style="height:60vh; width:40vh;"/>
+        </div>
     </div>
     <div class="form-label-group" style="margin-bottom:10px">
         <label asp-for="Name">Name</label>
@@ -49,11 +52,15 @@
         <span asp-validation-for="PagesCount" class="text-danger"></span>
     </div>
 
+    <div class="form-label-group" style="margin-bottom:10px">
+        <label asp-for="Url">Image Url</label>
+        <input asp-for="Url" class="form-control" placeholder="Enter Image Url" value="@Model.Url">
+    </div>
+
     <div class="form-group">
         <label asp-for="Image">Image</label>
         <input asp-for="Image" type="file" class="form-control" placeholder="Image">
         <span asp-validation-for="Image" class="text-danger"></span>
-
     </div>
 
     <div class="form-row form-group" style="margin-top:30px">

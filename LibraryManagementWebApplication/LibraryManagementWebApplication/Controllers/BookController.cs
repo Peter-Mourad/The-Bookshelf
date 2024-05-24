@@ -86,9 +86,14 @@ namespace LibraryManagementWebApplication.Controllers
                 return View();
             }
 
-            if (editBookViewModel.Url != null)
+            if (editBookViewModel.Url != null && editBookViewModel.Image != null) 
+            { 
                 await _photoService.DeletePhotoAsync(editBookViewModel.Url);
-            var uploadPhotoResult = await _photoService.AddPhotoAsync(editBookViewModel.Image);
+                var uploadPhotoResult = await _photoService.AddPhotoAsync(editBookViewModel.Image);
+                if (uploadPhotoResult != null) 
+                    editBookViewModel.Url = uploadPhotoResult.Url.ToString();
+            }
+
             var editedBook = new Book
             {
                 Id = id,
@@ -96,7 +101,7 @@ namespace LibraryManagementWebApplication.Controllers
                 Author = editBookViewModel.Author,
                 Publisher = editBookViewModel.Publisher,
                 Category = editBookViewModel.Category,
-                Image = uploadPhotoResult.Url.ToString(),
+                Image = editBookViewModel.Url,
                 Price = editBookViewModel.Price,
                 Rating = editBookViewModel.Rating,
                 PagesCount = editBookViewModel.PagesCount,
