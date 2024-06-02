@@ -1,5 +1,5 @@
-# "Library Management Web Application"
-## Library Management Web Application is an online platform for selling books.
+# "The Bookshelf"
+## The Bookshelf is an online web application for selling books with convenient user experience.
 You can find your book easily be searching for either it's: [Name - Author Name - Book category]
 
 ## Getting Started
