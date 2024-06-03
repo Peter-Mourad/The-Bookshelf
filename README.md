@@ -7,7 +7,7 @@ You can find your book easily be searching for either it's: [Name - Author Name 
 2- Download and install [.net 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.300-windows-x64-installer).<br>
 3- Clone the repository and open the project in visual studio. <br>
 4- Download and install [SQL Server Management Studio](https://aka.ms/ssmsfullsetup). <br>
-5- Configure database "Connection String" in appsettings.json file.
+5- Configure database "Connection String" in appsettings.json file. <br>
 6- Make account on [Cloudinary](https://cloudinary.com/) for hosting application media.<br>
 7- Modify Cloudinary account settings in appsettings.json. <br>
 8- Build the application and enjoy the tour!. <br>
